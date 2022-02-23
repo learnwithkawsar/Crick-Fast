@@ -1,8 +1,0 @@
-version: '3.4'
-
-services:
-  player.api:
-    image: ${DOCKER_REGISTRY-}playerapi
-    build:
-      context: .
-      dockerfile: src/Services/Player/Player.API/Player.API/Dockerfile
