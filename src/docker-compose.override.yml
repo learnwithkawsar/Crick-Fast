@@ -5,6 +5,7 @@ services:
     container_name: player-api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=playerdb;Database=PlayerDb;User Id=sa;Password=SwN12345678;MultipleActiveResultSets=true
     ports:
       - "8001:80"
   playerdb:
