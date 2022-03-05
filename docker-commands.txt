@@ -1,2 +1,4 @@
 
-  docker-compose up -d --build 
+  1. To Run Docker compose
+
+	  docker-compose -p app up --build

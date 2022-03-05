@@ -8,3 +8,10 @@ services:
       dockerfile: Services/Player.API/Dockerfile
   playerdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
+    volumes:
+      - sqldata:/var/opt/mssql
+
+volumes:
+   sqldata:
+    external: false
+
