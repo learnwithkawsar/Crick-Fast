@@ -1,25 +1,26 @@
-using Player.API.Infrastructure;
 using Serilog;
+using Teams.API.Infrastructure.DBContext;
+using Teams.API.Infrastructure.Interfaces;
+using Teams.API.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-//builder.Host.UseSerilog((ctx, lc) => lc
-//    .WriteTo.Console());
-
-
 var logger = new LoggerConfiguration()
   .ReadFrom.Configuration(builder.Configuration)
+  .WriteTo.Console()
   .Enrich.FromLogContext()
   .CreateLogger();
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddSerilog(logger);
-logger.Information(builder.Configuration.GetConnectionString("DefaultConnection"));
-logger.Information("Player Service Starting....");
-// Add services to the container.
-builder.Services.AddInfrastructureServices(builder.Configuration);
 
+logger.Information("Team Service Starting....");
+
+
+// Add services to the container.
+builder.Services.AddScoped<ITeamContext, TeamContext>();
+builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
 
 
 builder.Services.AddControllers();

@@ -16,3 +16,18 @@ services:
     restart: always
     ports:
         - "1433:1433"
+  nosqldb:
+    container_name: nosqldb
+    restart: always
+    ports:
+        - "27017:27017"
+    volumes:
+        - mongo_data:/data/db
+  teams.api:
+    container_name: teams-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionString=mongodb://nosqldb:27017"
+    ports:
+      - "8002:80"
+

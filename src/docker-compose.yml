@@ -6,12 +6,26 @@ services:
     build:
       context: .
       dockerfile: Services/Player.API/Dockerfile
+  teams.api:
+    image: ${DOCKER_REGISTRY-}teamsapi
+    build:
+      context: .
+      dockerfile: Teams.API/Dockerfile
+
+
+
   playerdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
     volumes:
       - sqldata:/var/opt/mssql
+  nosqldb:
+    image: mongo
+
+  
 
 volumes:
    sqldata:
     external: false
+   mongo_data:
+
 
