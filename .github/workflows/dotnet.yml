@@ -18,9 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
-      working-directory: src/
+      run: dotnet restore src/CrickFast.sln 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build src/CrickFast.sln --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
