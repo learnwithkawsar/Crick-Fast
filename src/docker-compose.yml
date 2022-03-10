@@ -10,7 +10,7 @@ services:
     image: ${DOCKER_REGISTRY-}teamsapi
     build:
       context: .
-      dockerfile: Teams.API/Dockerfile
+      dockerfile: Services/Teams.API/Dockerfile
 
 
 

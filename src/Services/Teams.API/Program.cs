@@ -2,15 +2,12 @@ using Serilog;
 using Teams.API.Infrastructure.DBContext;
 using Teams.API.Infrastructure.Interfaces;
 using Teams.API.Infrastructure.Repositories;
+using Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-var logger = new LoggerConfiguration()
-  .ReadFrom.Configuration(builder.Configuration)
-  .WriteTo.Console()
-  .Enrich.FromLogContext()
-  .CreateLogger();
+var logger = CommonLogging.CreateSerilogLogger(builder.Configuration,"Teams-API");
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddSerilog(logger);
