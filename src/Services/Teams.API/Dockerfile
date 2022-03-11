@@ -8,6 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Services/Teams.API/Teams.API.csproj", "Services/Teams.API/"]
 COPY ["BuildingBlocks/Utilities/Utilities.csproj", "BuildingBlocks/Utilities/"]
+COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlocks/EventBus.Messages/"]
 RUN dotnet restore "Services/Teams.API/Teams.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Teams.API"

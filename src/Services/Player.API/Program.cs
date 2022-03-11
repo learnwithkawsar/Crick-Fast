@@ -1,5 +1,9 @@
+using EventBus.Messages.Common;
+using MassTransit;
+using Player.API.EventBusConsumer;
 using Player.API.Infrastructure;
 using Serilog;
+using Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,19 +12,29 @@ var builder = WebApplication.CreateBuilder(args);
 //    .WriteTo.Console());
 
 
-var logger = new LoggerConfiguration()
-  .ReadFrom.Configuration(builder.Configuration)
-  .Enrich.FromLogContext()
-  .CreateLogger();
+var logger = CommonLogging.CreateSerilogLogger(builder.Configuration, "Players-API");
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 builder.Logging.AddSerilog(logger);
 logger.Information(builder.Configuration.GetConnectionString("DefaultConnection"));
 logger.Information("Player Service Starting....");
 // Add services to the container.
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+// MassTransit-RabbitMQ Configuration
+builder.Services.AddMassTransit(config => {
 
+    config.AddConsumer<TeamAssignConsumer>();
+
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+        //cfg.UseHealthCheck(ctx);
+
+        cfg.ReceiveEndpoint(EventBusConstants.TeamAssignQueue, c => {
+            c.ConfigureConsumer<TeamAssignConsumer>(ctx);
+        });
+    });
+});
+builder.Services.AddMassTransitHostedService();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Teams.API", "Services\Teams
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuidingBlocks", "BuidingBlocks", "{0A5FF2BD-7276-40FE-94DA-99509E550AF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utilities", "BuildingBlocks\Utilities\Utilities.csproj", "{6B63F593-D091-4A6D-8524-50E0A8C64A1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "BuildingBlocks\Utilities\Utilities.csproj", "{6B63F593-D091-4A6D-8524-50E0A8C64A1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "BuildingBlocks\EventBus.Messages\EventBus.Messages.csproj", "{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{6B63F593-D091-4A6D-8524-50E0A8C64A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B63F593-D091-4A6D-8524-50E0A8C64A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B63F593-D091-4A6D-8524-50E0A8C64A1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{CD1ABD9E-3493-4657-9904-3F94ECD30622} = {317A318E-99FB-4563-AF54-2E53ACF3B640}
 		{0A311650-2695-44B2-8FFE-2F7EC0928AA7} = {317A318E-99FB-4563-AF54-2E53ACF3B640}
 		{6B63F593-D091-4A6D-8524-50E0A8C64A1B} = {0A5FF2BD-7276-40FE-94DA-99509E550AF0}
+		{862EC7A4-94B0-4BB7-BF94-91B3CB6494A2} = {0A5FF2BD-7276-40FE-94DA-99509E550AF0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {62111C91-D463-4BF1-96A5-20E2DCA74991}

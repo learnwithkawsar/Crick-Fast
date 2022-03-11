@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EventBus.Messages.Events;
+using MassTransit;
+using Microsoft.AspNetCore.Mvc;
 using Teams.API.ApplicationCore.Domain.Entities;
 using Teams.API.Infrastructure.Interfaces;
 
@@ -11,9 +13,11 @@ namespace Teams.API.Controllers
     public class TeamsController : ControllerBase
     {
         private readonly ITeamsRepository _teamsRepository;
-        public TeamsController(ITeamsRepository teamsRepository)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public TeamsController(ITeamsRepository teamsRepository, IPublishEndpoint publishEndpoint)
         {
-            _teamsRepository = teamsRepository ?? throw new ArgumentNullException(nameof(teamsRepository)); ;
+            _teamsRepository = teamsRepository ?? throw new ArgumentNullException(nameof(teamsRepository)); 
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
         }
 
         // GET: api/<TeamsController>
@@ -32,12 +36,17 @@ namespace Teams.API.Controllers
 
         // POST api/<TeamsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async void Post([FromBody] string value)
         {
             TeamInfo teamInfo = new TeamInfo(); 
             teamInfo.TeamName = value;
             teamInfo.ShortCode = value.Substring(0,2).ToLower();
             _teamsRepository.CreateTeam(teamInfo);
+
+            TeamAssignEvent teamAssignEvent = new TeamAssignEvent();
+            teamAssignEvent.TeamName = "BD";
+
+            await _publishEndpoint.Publish<TeamAssignEvent>(teamAssignEvent);
         }
 
         // PUT api/<TeamsController>/5

@@ -6,18 +6,17 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Services/Player.API/Player.API.csproj", "Services/Player.API/"]
+COPY ["Services/Teams.API/Teams.API.csproj", "Services/Teams.API/"]
 COPY ["BuildingBlocks/Utilities/Utilities.csproj", "BuildingBlocks/Utilities/"]
-COPY ["BuildingBlocks/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlocks/EventBus.Messages/"]
-RUN dotnet restore "Services/Player.API/Player.API.csproj"
+RUN dotnet restore "Services/Teams.API/Teams.API.csproj"
 COPY . .
-WORKDIR "/src/Services/Player.API"
-RUN dotnet build "Player.API.csproj" -c Release -o /app/build
+WORKDIR "/src/Services/Teams.API"
+RUN dotnet build "Teams.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Player.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "Teams.API.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Player.API.dll"]
+ENTRYPOINT ["dotnet", "Teams.API.dll"]

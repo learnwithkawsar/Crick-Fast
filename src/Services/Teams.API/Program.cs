@@ -1,3 +1,4 @@
+using MassTransit;
 using Serilog;
 using Teams.API.Infrastructure.DBContext;
 using Teams.API.Infrastructure.Interfaces;
@@ -9,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 var logger = CommonLogging.CreateSerilogLogger(builder.Configuration,"Teams-API");
 builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
 builder.Logging.AddSerilog(logger);
 
 logger.Information("Team Service Starting....");
@@ -18,6 +18,17 @@ logger.Information("Team Service Starting....");
 // Add services to the container.
 builder.Services.AddScoped<ITeamContext, TeamContext>();
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
+
+
+builder.Services.AddMassTransit(config => {
+    config.UsingRabbitMq((ctx, cfg) => {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+        //cfg.UseHealthCheck(ctx);
+    });
+});
+builder.Services.AddMassTransitHostedService();
+
+
 
 
 builder.Services.AddControllers();
