@@ -14,7 +14,9 @@ namespace Player.API.EventBusConsumer
 
         public  Task Consume(ConsumeContext<TeamAssignEvent> context)
         {
-             _logger.LogInformation($"Message : {context.Message.TeamName}");
+             _logger.LogInformation($"Message : {context.Message.PlayerName} is assigned to team {context.Message.TeamName} ");
+
+
            return Task.CompletedTask;
         }
     }

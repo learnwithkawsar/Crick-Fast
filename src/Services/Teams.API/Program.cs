@@ -18,6 +18,7 @@ logger.Information("Team Service Starting....");
 // Add services to the container.
 builder.Services.AddScoped<ITeamContext, TeamContext>();
 builder.Services.AddScoped<ITeamsRepository, TeamsRepository>();
+builder.Services.AddScoped<ITeamsPlayersRepository, TeamsPlayerRepository>();
 
 
 builder.Services.AddMassTransit(config => {
